@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from .number_theory.prime_numbers import next_prime
+from .hash_functions import universal_hash
 from terminaltables import AsciiTable
 
 class HashTable:
@@ -38,7 +39,7 @@ class HashTable:
         :param key: value of slot
         :return: a key that represent the position of key-value in array
         """
-        return key % self.size_table
+        return universal_hash(key, self.size_table, base=31)
 
     def _mount_table(self):
         table = [

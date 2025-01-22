@@ -66,11 +66,13 @@ def test_insert_rehashing(size_table, values):
     rehash.bulk_insert(values)
     print(rehash)
 
-# test_insert_delete_hma(5,3,[31, 11, 14, 92, 33, 11, 65, 87, 49, 7, 19, 32, 71, 12, 73,23],[11, 7, 92])
+#test_insert_delete_hma(7,3,[32, 77, 441, 22, 62, 131, 16, 81, 91, 31, 19, 21, 22, 88, 11, 876, 69, 16, 36, 12, 19],[19, 81, 101, 441, 11, 22, 14])
 # print(test_balanced_factor_linked_list_hash(5, 3, [22, 43, 16,16, 44, 77, 62]))   
 #test_balanced_factor_hma(7, 2, [0,1,85,6,36,46,89,112,44])
 # print(test_double_hash_th(29, [22, 43, 36, 16, 44, 77, 62, 32, 71, 31, 41, 27, 29, 19, 7, 14, 91, 81, 1]))
 #test_insert_double_hash_r(11, [31, 11, 14, 92, 33, 11, 65, 87, 49, 7, 19, 32, 71, 12, 73,23])
-#test_insert_hma(5,3, [61, 31, 41, 27, 18, 19, 7, 14, 9122, 43, 36, 16, 44, 77, 62, 32, 101, 1], False)
-# test_insert_delete_hma(5,3, [61, 31, 41, 27, 18, 19, 7, 14, 9122, 43, 36, 16, 44, 77, 62, 32, 101, 1], [36, 81, 7, 31])
-test_insert_rehashing(size_table=8, values=[13,15,24,6,23, 25, 15, 19])
+# test_insert_hma(5,2, ['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx'], True)
+test_insert_delete_hma(5,2, ['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx'], ['Hv3', 'S84', '6b2', 'Zz5', '12y'], True)
+# A31, hB2, wA5, Hv3, 12y, 0o1, 4Ab, S84, d32, 34a, C4W, 6b2, C128, Zz5, WgC, 12s, 51K, 3GH, A9W, Vt1, 1x3, a89, 2D1, 35, 8Yx
+# ['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx']
+#test_insert_rehashing(size_table=8, values=['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx'])
