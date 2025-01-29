@@ -112,21 +112,23 @@ class HashTable:
         if self.values[key] is None:
             self._set_value(key, data)
             return key, data
-
         elif self.values[key] == data:
-            pass
-
+            # Já existe o mesmo item
+            return key, data
         else:
+            # Houve colisão, tentamos Quadratic Probing
             new_key = self._colision_resolution(key, data)
             if new_key is not None:
+                # Conseguimos achar um slot depois de tentar i^2
                 self._set_value(new_key, data)
-            elif new_key is None and self.with_rehashing is True:
+            elif self.with_rehashing is True:
+                # Nenhum slot encontrado -> rehash
                 self.rehashing()
+                # Tenta inserir de novo
                 self.insert_data(data)
             else:
-                print("\n*-*-*-*- Element {0} couldn't be inserted ! -*-*-*-*\n".format(data))
+                print(f"\n*-*-*-*- Element {data} couldn't be inserted ! -*-*-*-*\n")
 
-        
 
 
 
