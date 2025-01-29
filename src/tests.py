@@ -46,7 +46,7 @@ def test_double_hash_th(size_table, values):
     return dh
 
 def test_insert_delete_hma(size_table, charge_factor, values_to_insert, values_to_delete, rehashing=True):
-    hma = test_insert_hma(size_table, charge_factor,  values_to_insert, rehashing=rehashing)
+    hma = test_insert_hma(size_table, charge_factor, values_to_insert, rehashing=rehashing)
     print(hma)
     for value in values_to_delete:
         if hma.delete_value(value) is not None:
@@ -72,6 +72,7 @@ def test_insert_rehashing_cubic(size_table, values):
     rehash = CubicProbing(size_table=size_table, rehashing=True)
     rehash.bulk_insert(values)
     print(rehash)
+
 def test_insert_delete_hash_linked_list(size_table, charge_factor, values_to_insert, values_to_delete):
     hl = HashTableWithLinkedList(size_table=size_table, charge_factor=charge_factor)
     print("Inserindo valores:")
@@ -86,21 +87,53 @@ def test_insert_delete_hash_linked_list(size_table, charge_factor, values_to_ins
     
     print("\nTabela de Hash após deleções:")
     print(hl)
-#test_insert_delete_hma(7,3,[32, 77, 441, 22, 62, 131, 16, 81, 91, 31, 19, 21, 22, 88, 11, 876, 69, 16, 36, 12, 19],[19, 81, 101, 441, 11, 22, 14])
-# print(test_balanced_factor_linked_list_hash(5, 3, [22, 43, 16,16, 44, 77, 62]))   
-#test_balanced_factor_hma(7, 2, [0,1,85,6,36,46,89,112,44])
-# print(test_double_hash_th(29, [22, 43, 36, 16, 44, 77, 62, 32, 71, 31, 41, 27, 29, 19, 7, 14, 91, 81, 1]))
-#test_insert_double_hash_r(11, [31, 11, 14, 92, 33, 11, 65, 87, 49, 7, 19, 32, 71, 12, 73,23])
-# test_insert_hma(5,2, ['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx'], True)
-#test_insert_delete_hma(5,2, ['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx'], ['Hv3', 'S84', '6b2', 'Zz5', '12y'], True)
-# A31, hB2, wA5, Hv3, 12y, 0o1, 4Ab, S84, d32, 34a, C4W, 6b2, C128, Zz5, WgC, 12s, 51K, 3GH, A9W, Vt1, 1x3, a89, 2D1, 35, 8Yx
-# ['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx']
-#test_insert_rehashing(size_table=5, values=['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx'])
-#test_insert_rehashing_cubic(5,['A31', 'hB2', 'wA5', 'Hv3', '12y', '0o1', '4Ab', 'S84', 'd32', '34a', 'C4W', '6b2', 'C128', 'Zz5', 'WgC', '12s', '51K', '3GH', 'A9W', 'Vt1', '1x3', 'a89', '2D1', '35', '8Yx'])
-#test_insert_hash_linked_list(size_table=7,charge_factor=3,values_to_insert=[32, 77, 441, 22, 62, 131, 16, 81, 91, 31, 19, 21, 22, 88, 11, 876, 69, 16, 36, 12, 19],values_to_delete=[19, 81, 101, 441, 11, 22, 14])
-test_insert_delete_hash_linked_list(
-    size_table=7,
-    charge_factor=3,
-    values_to_insert=[32, 77, 441, 22, 62, 131, 16, 81, 91, 31, 19, 21, 22, 88, 11, 876, 69, 16, 36, 12, 19],
-    values_to_delete=[19, 81, 101, 441, 11, 22, 14]
-)
+
+# -----------------------------------------------------------
+# NOVA FUNÇÃO: test_insert_rehashing_steps
+# -----------------------------------------------------------
+def test_insert_rehashing_steps(size_table, values, steps_to_print=None):
+    """
+    Insere os valores de 'values' passo a passo em QuadraticProbing,
+    com tabela inicial de tamanho 'size_table' (THo=11, por exemplo),
+    e imprime a tabela nos passos definidos em 'steps_to_print'.
+
+    :param size_table: tamanho inicial da tabela de hash (ex: 11)
+    :param values: lista de valores a inserir
+    :param steps_to_print: lista de passos em que se deseja imprimir a tabela
+                           (ex: [9, 16])
+    """
+    if steps_to_print is None:
+        steps_to_print = []
+
+    print(f"=== Hashing Fechada com Quadratic Probing ===")
+    print(f"TH0 = {size_table}, com rehashing ativado.")
+    qp = QuadraticProbing(size_table=size_table, rehashing=True)
+
+    # Inserção passo a passo
+    for i, val in enumerate(values, start=1):
+        print(f"\n>>> Passo {i}: inserindo '{val}'")
+        qp.insert_data(val)  # insere 1 a 1
+        # Se este passo está na lista de "steps_to_print", imprimimos a tabela
+        if i in steps_to_print:
+            print(f"\n--- Tabela após o {i}º passo ---")
+            print(qp)
+
+    # Ao final, imprimir a tabela completa (opcional)
+    print("\n=== Tabela Final ===")
+    print(qp)
+
+
+# ---------------------------------------------------------------------
+# CHAMADA DE TESTE para exibir passos 9 e 16
+# ---------------------------------------------------------------------
+
+if __name__ == "__main__":
+    # Conjunto S
+    S = [32, 77, 441, 22, 62, 131, 16, 81, 91, 31,
+         19, 21, 22, 88, 11, 876, 69, 16, 36, 12, 19]
+
+    # Precisamos exibir o 9º e 16º passo
+    steps = [9, 16]
+
+    # Tamanho inicial da tabela = 11 (THo = 11)
+    test_insert_rehashing_steps(size_table=11, values=S, steps_to_print=steps)
